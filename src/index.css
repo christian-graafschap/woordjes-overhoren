@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body {
+    @apply bg-slate-950 text-slate-100 antialiased;
+  }
+  body {
+    background-image: radial-gradient(circle at 20% 0%, rgba(99, 102, 241, 0.12), transparent 40%),
+      radial-gradient(circle at 90% 100%, rgba(16, 185, 129, 0.08), transparent 40%);
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  .knop {
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl px-5 py-3 text-base font-semibold transition
+      active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40 focus:outline-none focus-visible:ring-4 focus-visible:ring-indigo-400/50
+      hoog:px-6 hoog:py-4 hoog:text-lg;
+  }
+  .knop-primair {
+    @apply knop bg-indigo-500 text-white shadow-lg shadow-indigo-500/20 hover:bg-indigo-400;
+  }
+  .knop-groen {
+    @apply knop bg-emerald-500 text-white shadow-lg shadow-emerald-500/20 hover:bg-emerald-400;
+  }
+  .knop-rood {
+    @apply knop bg-rose-500 text-white shadow-lg shadow-rose-500/20 hover:bg-rose-400;
+  }
+  .knop-secundair {
+    @apply knop bg-slate-800 text-slate-100 ring-1 ring-slate-700 hover:bg-slate-700;
+  }
+  .knop-klein {
+    @apply rounded-xl px-3 py-1.5 text-sm hoog:px-4 hoog:py-2 hoog:text-base;
+  }
+  .kaart {
+    @apply rounded-2xl bg-slate-900/80 p-4 ring-1 ring-slate-800 backdrop-blur hoog:rounded-3xl hoog:p-6;
+  }
+  .keuze {
+    @apply rounded-2xl bg-slate-800 px-4 py-3 text-left text-base font-semibold ring-2 ring-transparent transition hover:bg-slate-700
+      hoog:px-5 hoog:py-4 hoog:text-lg;
+  }
+  .keuze-actief {
+    @apply bg-indigo-500/20 ring-indigo-400;
+  }
+  .invoer {
+    @apply w-full rounded-2xl bg-slate-800 px-4 py-3 text-xl text-white ring-2 ring-slate-700 placeholder:text-slate-500
+      focus:outline-none focus:ring-indigo-400 hoog:px-5 hoog:py-4 hoog:text-2xl;
+  }
+  .kop {
+    @apply text-2xl font-bold tracking-tight hoog:text-3xl;
+  }
+  /* Kaart met het woord dat gevraagd wordt, en het woord zelf. */
+  .vraagkaart {
+    @apply py-6 text-center hoog:py-12;
+  }
+  .vraagtekst {
+    @apply break-words text-3xl font-bold hoog:text-5xl;
+  }
+  /* Grote antwoordknoppen (meerkeuze, koppelspel). */
+  .antwoordknop {
+    @apply rounded-2xl px-4 py-3 text-lg font-semibold ring-2 transition hoog:px-5 hoog:py-5 hoog:text-xl;
+  }
+}
+
+.flip {
+  perspective: 1200px;
+}
+.flip-binnen {
+  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform-style: preserve-3d;
+}
+.flip-binnen.omgedraaid {
+  transform: rotateY(180deg);
+}
+.flip-kant {
+  backface-visibility: hidden;
+}
+.flip-achter {
+  transform: rotateY(180deg);
+}
