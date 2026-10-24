@@ -40,6 +40,11 @@ export function schoon(s: string): string {
   return s.normalize('NFC').replace(/[’‘`´]/g, "'").trim().replace(/\s+/g, ' ');
 }
 
+/** Punt(en) aan het eind weghalen: die tellen niet mee bij het nakijken (een vraagteken wel). */
+export function zonderEindpunt(s: string): string {
+  return s.replace(/\.+$/, '').trimEnd();
+}
+
 /** Accenten verwijderen (é → e) en ß/œ/æ uitschrijven. */
 export function zonderAccenten(s: string): string {
   return s
@@ -152,8 +157,9 @@ export function optiesVoor(richting: Richting, vak: VakInstellingen): NakijkOpti
 }
 
 /** Kijkt een getypt antwoord na tegen een lijst geldige antwoorden. */
-export function beoordeel(invoerRuw: string, kandidaten: string[], opties: NakijkOpties): Beoordeling {
-  const invoer = schoon(invoerRuw);
+export function beoordeel(invoerRuw: string, kandidatenRuw: string[], opties: NakijkOpties): Beoordeling {
+  const invoer = zonderEindpunt(schoon(invoerRuw));
+  const kandidaten = kandidatenRuw.map((k) => zonderEindpunt(schoon(k))).filter(Boolean);
   const hoofd = kandidaten[0] ?? '';
   const resultaat = (uitslag: Uitslag, juist: string, melding: string): Beoordeling => {
     const d = maakDiff(invoer, juist, opties.hoofdlettersBelangrijk);

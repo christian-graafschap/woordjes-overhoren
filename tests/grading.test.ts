@@ -28,6 +28,15 @@ describe('spaties en hoofdletters', () => {
   it('negeert spaties aan begin/eind en dubbele spaties', () => {
     expect(beoordeel('  le   chien ', ['le chien'], fr).uitslag).toBe('goed');
   });
+  it('negeert een punt aan het eind, in invoer en in het juiste antwoord', () => {
+    expect(beoordeel('le chien.', ['le chien'], fr).uitslag).toBe('goed');
+    expect(beoordeel('le chien', ['le chien.'], fr).uitslag).toBe('goed');
+    expect(beoordeel('Ça va.', ['Ça va'], fr).uitslag).toBe('goed');
+  });
+  it('een vraagteken aan het eind telt wel mee', () => {
+    expect(beoordeel('ça va', ['ça va ?'], fr).uitslag).toBe('fout');
+    expect(beoordeel('ça va ?', ['ça va ?'], fr).uitslag).toBe('goed');
+  });
   it('is hoofdletterongevoelig als hoofdletters niet belangrijk zijn', () => {
     expect(beoordeel('LE CHIEN', ['le chien'], fr).uitslag).toBe('goed');
   });
